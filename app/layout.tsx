@@ -3,6 +3,7 @@ import { Geist } from "next/font/google";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import { MegaMenu } from "@/components/mega-menu";
+import { Footer } from "@/components/footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,6 +25,7 @@ export default function RootLayout({
       <body className={`${geistSans.variable} antialiased`}>
         <MegaMenu />
         {children}
+        <Footer />
         <SpeedInsights />
       </body>
     </html>
