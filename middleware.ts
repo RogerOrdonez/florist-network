@@ -1,58 +1,58 @@
 import { type NextRequest, NextResponse } from "next/server";
-import { rootDomain, protocol } from "@/lib/utils";
+import { rootDomain } from "@/lib/utils";
 
-// Lightweight sanitizer for slugs — edge-safe and intentionally simple.
-function sanitizeCitySlug(slug: string | null) {
-  if (!slug) return null;
-  return slug.toLowerCase().replace(/[^a-z0-9-]/g, "") || null;
-}
-
-function extractCitySlug(request: NextRequest): string | null {
+function extractSubdomain(request: NextRequest): string | null {
+  const url = request.url;
   const host = request.headers.get("host") || "";
   const hostname = host.split(":")[0];
+  console.log(`Extracting subdomain from hostname: ${hostname}`);
+  console.log(`Extracting subdomain from URL: ${url}`);
+  console.log(`Full host header: ${host}`);
 
-  // Local development: extract city slug from `city.localhost` hostnames
-  if (hostname.includes(".localhost")) {
-    return hostname.split(".")[0];
+  // Local development environment
+  if (url.includes("localhost") || url.includes("127.0.0.1")) {
+    // Try to extract subdomain from the full URL
+    const fullUrlMatch = url.match(/http:\/\/([^.]+)\.localhost/);
+    if (fullUrlMatch && fullUrlMatch[1]) {
+      return fullUrlMatch[1];
+    }
+
+    // Fallback to host header approach
+    if (hostname.includes(".localhost")) {
+      return hostname.split(".")[0];
+    }
+
+    return null;
   }
 
-  // Production / preview: remove port from configured root domain
+  // Production environment
   const rootDomainFormatted = rootDomain.split(":")[0];
+  console.log(`Root domain formatted: ${rootDomainFormatted}`);
 
-  // Handle Vercel preview deployment URLs (city---branch-name.vercel.app)
+  // Handle preview deployment URLs (tenant---branch-name.vercel.app)
   if (hostname.includes("---") && hostname.endsWith(".vercel.app")) {
     const parts = hostname.split("---");
     return parts.length > 0 ? parts[0] : null;
   }
 
-  // Regular subdomain detection for root domain
-  const isCitySubdomain =
+  // Regular subdomain detection
+  const isSubdomain =
     hostname !== rootDomainFormatted &&
     hostname !== `www.${rootDomainFormatted}` &&
     hostname.endsWith(`.${rootDomainFormatted}`);
 
-  return isCitySubdomain
-    ? hostname.replace(`.${rootDomainFormatted}`, "")
-    : null;
+  return isSubdomain ? hostname.replace(`.${rootDomainFormatted}`, "") : null;
 }
 
 export async function middleware(request: NextRequest) {
-  console.log("Middleware invoked for URL:", request.url);
-  console.log("Middleware invoked for host:", request.headers.get("host"));
   const { pathname } = request.nextUrl;
-  const city = extractCitySlug(request);
-  console.log("Middleware detected city slug:", city);
-  console.log("Request pathname:", pathname);
+  const subdomain = extractSubdomain(request);
+  console.log(`Middleware: pathname=${pathname}, subdomain=${subdomain}`);
 
-  if (city) {
-    const sanitized = sanitizeCitySlug(city);
-
-    // If the extracted slug contains unexpected characters, rewrite using
-    // the sanitized version. We do not validate existence here because the
-    // middleware runs at the edge and should avoid datastore calls.
+  if (subdomain) {
+    // For the root path on a subdomain, rewrite to the subdomain page
     if (pathname === "/") {
-      const target = sanitized ?? city;
-      return NextResponse.rewrite(new URL(`/s/${target}`, request.url));
+      return NextResponse.rewrite(new URL(`/s/${subdomain}`, request.url));
     }
   }
 
