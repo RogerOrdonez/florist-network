@@ -65,7 +65,7 @@ export function MegaMenu() {
                             <Link
                               href="/quickview"
                               className="flex items-center gap-2 text-sm hover:text-primary transition-colors"
-                            >
+                              legacyBehavior>
                               Quickview-Popup
                               <Badge
                                 variant="secondary"
@@ -87,7 +87,7 @@ export function MegaMenu() {
                             <Link
                               href="/quick-add"
                               className="flex items-center gap-2 text-sm hover:text-primary transition-colors"
-                            >
+                              legacyBehavior>
                               Quick Add to cart
                               <Badge className="bg-green-500 text-white text-[10px] px-1.5 py-0">
                                 NEW
@@ -145,7 +145,7 @@ export function MegaMenu() {
                             <Link
                               href="/all-styles"
                               className="flex items-center gap-2 text-sm hover:text-primary transition-colors"
-                            >
+                              legacyBehavior>
                               All Style
                               <Badge
                                 variant="destructive"
@@ -176,7 +176,7 @@ export function MegaMenu() {
                             <Link
                               href="/ajax-minicart"
                               className="flex items-center gap-2 text-sm hover:text-primary transition-colors"
-                            >
+                              legacyBehavior>
                               Ajax Minicart
                               <Badge className="bg-green-500 text-white text-[10px] px-1.5 py-0">
                                 NEW
