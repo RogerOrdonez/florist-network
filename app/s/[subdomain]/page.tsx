@@ -3,6 +3,13 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getAllCities, getCityData } from "@/lib/subdomains";
 import { protocol, rootDomain } from "@/lib/utils";
+import { getProducts } from "@/lib/data";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
 
 export async function generateMetadata({
   params,
@@ -18,8 +25,8 @@ export async function generateMetadata({
   }
 
   return {
-    title: `${city}.${rootDomain}`,
-    description: `City page for ${city}.${rootDomain}`,
+    title: cityData.title,
+    description: cityData.description,
   };
 }
 
@@ -38,6 +45,7 @@ export default async function CityPage({
   const { subdomain } = await params;
   const city = subdomain;
   const cityData = await getCityData(city);
+  const products = getProducts();
 
   if (!cityData) {
     notFound();
@@ -45,7 +53,7 @@ export default async function CityPage({
 
   return (
     <div className="flex min-h-screen flex-col bg-linear-to-b from-blue-50 to-white p-4">
-      <div className="flex-1 flex items-center justify-center">
+      <div className="flex-1 flex items-center justify-center mt-8">
         <div className="text-center">
           <h1 className="text-4xl font-bold tracking-tight text-gray-900">
             Welcome to {cityData.name}
@@ -53,6 +61,22 @@ export default async function CityPage({
           <p className="mt-3 text-lg text-gray-600">
             {cityData.name ? cityData.description : "This is the city page."}
           </p>
+        </div>
+      </div>
+      <div className="mt-12 max-w-7xl mx-auto w-full">
+        <h2 className="text-2xl font-bold text-center mb-8">Our Products</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {products.map((product) => (
+            <Card key={product.id}>
+              <CardHeader>
+                <CardTitle>{product.name}</CardTitle>
+                <CardDescription>{product.description}</CardDescription>
+              </CardHeader>
+              <div className="p-6 pt-0">
+                <p className="text-lg font-semibold">${product.price}</p>
+              </div>
+            </Card>
+          ))}
         </div>
       </div>
     </div>

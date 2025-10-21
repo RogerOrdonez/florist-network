@@ -7,9 +7,6 @@ function extractSubdomain(request: NextRequest): string | null {
   const url = request.url;
   const host = request.headers.get("host") || "";
   const hostname = host.split(":")[0];
-  console.log(`Extracting subdomain from hostname: ${hostname}`);
-  console.log(`Extracting subdomain from URL: ${url}`);
-  console.log(`Full host header: ${host}`);
 
   // Local development environment
   if (url.includes("localhost") || url.includes("127.0.0.1")) {
@@ -28,8 +25,6 @@ function extractSubdomain(request: NextRequest): string | null {
   }
 
   // Production environment
-  console.log(`Root domain formatted: ${rootDomainFormatted}`);
-
   // Handle preview deployment URLs (tenant---branch-name.vercel.app)
   if (hostname.includes("---") && hostname.endsWith(".vercel.app")) {
     const parts = hostname.split("---");
@@ -48,7 +43,6 @@ function extractSubdomain(request: NextRequest): string | null {
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const subdomain = extractSubdomain(request);
-  console.log(`Middleware: pathname=${pathname}, subdomain=${subdomain}`);
 
   // Handle reverse rewrites for /s/{subdomain} paths
   if (pathname.startsWith("/s/")) {

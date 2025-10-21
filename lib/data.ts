@@ -1,0 +1,98 @@
+export const getProducts = () => [
+  {
+    id: "rose-bouquet",
+    name: "Rose Bouquet",
+    description: "A beautiful bouquet of fresh roses.",
+    price: 49.99,
+  },
+  {
+    id: "tulip-bouquet",
+    name: "Tulip Bouquet",
+    description: "A vibrant bouquet of colorful tulips.",
+    price: 39.99,
+  },
+  {
+    id: "sunflower-bouquet",
+    name: "Sunflower Bouquet",
+    description: "A cheerful bouquet of sunflowers.",
+    price: 29.99,
+  },
+  {
+    id: "lily-bouquet",
+    name: "Lily Bouquet",
+    description: "An elegant bouquet of lilies.",
+    price: 44.99,
+  },
+  {
+    id: "daisy-bouquet",
+    name: "Daisy Bouquet",
+    description: "A fresh and simple daisy bouquet.",
+    price: 24.99,
+  },
+  {
+    id: "orchid-arrangement",
+    name: "Orchid Arrangement",
+    description: "A sophisticated orchid arrangement.",
+    price: 59.99,
+  },
+  {
+    id: "carnation-bouquet",
+    name: "Carnation Bouquet",
+    description: "A classic carnation bouquet.",
+    price: 34.99,
+  },
+  {
+    id: "peony-bouquet",
+    name: "Peony Bouquet",
+    description: "A lush peony bouquet.",
+    price: 54.99,
+  },
+  {
+    id: "hydrangea-bouquet",
+    name: "Hydrangea Bouquet",
+    description: "A voluminous hydrangea bouquet.",
+    price: 49.99,
+  },
+  {
+    id: "lavender-bouquet",
+    name: "Lavender Bouquet",
+    description: "A fragrant lavender bouquet.",
+    price: 39.99,
+  },
+  {
+    id: "chrysanthemum-bouquet",
+    name: "Chrysanthemum Bouquet",
+    description: "A bright chrysanthemum bouquet.",
+    price: 29.99,
+  },
+  {
+    id: "gerbera-daisy-bouquet",
+    name: "Gerbera Daisy Bouquet",
+    description: "A colorful gerbera daisy bouquet.",
+    price: 32.99,
+  },
+  {
+    id: "iris-bouquet",
+    name: "Iris Bouquet",
+    description: "A striking iris bouquet.",
+    price: 42.99,
+  },
+  {
+    id: "mixed-flower-bouquet",
+    name: "Mixed Flower Bouquet",
+    description: "A delightful mix of various flowers.",
+    price: 45.99,
+  },
+  {
+    id: "wedding-bouquet",
+    name: "Wedding Bouquet",
+    description: "An exquisite wedding bouquet.",
+    price: 89.99,
+  },
+  {
+    id: "sympathy-arrangement",
+    name: "Sympathy Arrangement",
+    description: "A thoughtful sympathy flower arrangement.",
+    price: 64.99,
+  },
+];

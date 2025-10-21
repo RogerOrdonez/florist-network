@@ -347,14 +347,14 @@ export function MegaMenu() {
                   </CollapsibleContent>
                 </Collapsible>
                 <Link
-                  href="/"
+                  href="/occasion/birthday"
                   className="text-sm font-medium hover:text-primary transition-colors py-3 px-2"
                   onClick={() => setOpen(false)}
                 >
                   BIRTHDAY
                 </Link>
                 <Link
-                  href="/shop"
+                  href="/occasion/anniversary"
                   className="text-sm font-medium hover:text-primary transition-colors py-3 px-2"
                   onClick={() => setOpen(false)}
                 >
@@ -623,12 +623,12 @@ export function MegaMenu() {
 
               <NavigationMenuItem>
                 <NavigationMenuLink className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50">
-                  <Link href="/">BIRTHDAY</Link>
+                  <Link href="/occasion/birthday">BIRTHDAY</Link>
                 </NavigationMenuLink>
               </NavigationMenuItem>
               <NavigationMenuItem>
                 <NavigationMenuLink className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50">
-                  <Link href="/shop">ANNIVERSARY</Link>
+                  <Link href="/occasion/anniversary">ANNIVERSARY</Link>
                 </NavigationMenuLink>
               </NavigationMenuItem>
             </NavigationMenuList>

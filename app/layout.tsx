@@ -22,7 +22,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} antialiased`}>
+      <body
+        className={`${geistSans.variable} antialiased flex flex-col min-h-screen`}
+      >
         <MegaMenu />
         {children}
         <Footer />
