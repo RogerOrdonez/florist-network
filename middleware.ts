@@ -37,17 +37,15 @@ function extractCitySlug(request: NextRequest): string | null {
 }
 
 export async function middleware(request: NextRequest) {
+  console.log("Middleware invoked for URL:", request.url);
+  console.log("Middleware invoked for host:", request.headers.get("host"));
   const { pathname } = request.nextUrl;
   const city = extractCitySlug(request);
+  console.log("Middleware detected city slug:", city);
+  console.log("Request pathname:", pathname);
 
   if (city) {
     const sanitized = sanitizeCitySlug(city);
-
-    // Block access to the admin page from city subdomains — redirect to the
-    // canonical root domain so users land on the public site/admin there.
-    if (pathname.startsWith("/admin")) {
-      return NextResponse.redirect(`${protocol}://${rootDomain}`);
-    }
 
     // If the extracted slug contains unexpected characters, rewrite using
     // the sanitized version. We do not validate existence here because the
