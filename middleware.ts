@@ -1,6 +1,8 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { rootDomain } from "@/lib/utils";
 
+const rootDomainFormatted = rootDomain.split(":")[0];
+
 function extractSubdomain(request: NextRequest): string | null {
   const url = request.url;
   const host = request.headers.get("host") || "";
@@ -26,7 +28,6 @@ function extractSubdomain(request: NextRequest): string | null {
   }
 
   // Production environment
-  const rootDomainFormatted = rootDomain.split(":")[0];
   console.log(`Root domain formatted: ${rootDomainFormatted}`);
 
   // Handle preview deployment URLs (tenant---branch-name.vercel.app)
@@ -48,6 +49,21 @@ export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const subdomain = extractSubdomain(request);
   console.log(`Middleware: pathname=${pathname}, subdomain=${subdomain}`);
+
+  // Handle reverse rewrites for /s/{subdomain} paths
+  if (pathname.startsWith("/s/")) {
+    const pathSubdomain = pathname.split("/")[2];
+    if (subdomain) {
+      // If on a subdomain and accessing /s/{subdomain}, redirect to root of subdomain
+      if (pathSubdomain === subdomain) {
+        return NextResponse.redirect(new URL("/", request.url));
+      }
+    } else {
+      // If on root domain and accessing /s/{subdomain}, redirect to subdomain URL
+      const targetUrl = `https://${pathSubdomain}.${rootDomainFormatted}`;
+      return NextResponse.redirect(targetUrl);
+    }
+  }
 
   if (subdomain) {
     // For the root path on a subdomain, rewrite to the subdomain page
