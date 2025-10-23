@@ -27,6 +27,9 @@ export async function generateMetadata({
   return {
     title: cityData.title,
     description: cityData.description,
+    alternates: {
+      canonical: `${protocol}://${subdomain}.${rootDomain}`,
+    },
   };
 }
 
@@ -72,10 +75,15 @@ export default async function CityPage({
               href={`/p/${product.slug}`}
               className="block transition-transform hover:scale-105"
             >
-              <Card>
-                <CardHeader>
+              <Card className="h-64 flex flex-col overflow-hidden pt-0">
+                <div className="h-32 bg-gray-200 flex items-center justify-center text-gray-500 text-sm">
+                  Product Image
+                </div>
+                <CardHeader className="grow">
                   <CardTitle>{product.name}</CardTitle>
-                  <CardDescription>{product.description}</CardDescription>
+                  <CardDescription className="line-clamp-3">
+                    {product.description}
+                  </CardDescription>
                 </CardHeader>
                 <div className="p-6 pt-0">
                   <p className="text-lg font-semibold">${product.price}</p>

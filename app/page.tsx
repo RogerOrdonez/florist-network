@@ -5,11 +5,22 @@ import {
   CardTitle,
   CardDescription,
 } from "../components/ui/card";
+import type { Metadata } from "next";
+import { protocol, rootDomain } from "../lib/utils";
+
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title: "Florist Network - Choose Your City",
+    description:
+      "Find the perfect flowers for your city. Choose from our network of local florists.",
+    alternates: {
+      canonical: `${protocol}://${rootDomain}`,
+    },
+  };
+}
 
 export default async function HomePage() {
   const cities = await getAllCities();
-  const rootDomain = process.env.NEXT_PUBLIC_ROOT_DOMAIN || "localhost:3000";
-  const protocol = rootDomain.includes("localhost") ? "http" : "https";
 
   return (
     <div className="flex grow flex-col items-center justify-center bg-linear-to-b from-blue-50 to-white p-4 relative">

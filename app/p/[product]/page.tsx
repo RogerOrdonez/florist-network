@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { DatePicker } from "@/components/date-picker";
+import { protocol, rootDomain } from "@/lib/utils";
 
 export async function generateStaticParams() {
   const products = getProducts();
@@ -30,6 +31,9 @@ export async function generateMetadata({
   return {
     title: product.name,
     description: product.description,
+    alternates: {
+      canonical: `${protocol}://${rootDomain}/p/${productSlug}`,
+    },
   };
 }
 
