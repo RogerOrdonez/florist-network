@@ -8,17 +8,18 @@ import { DatePicker } from "@/components/date-picker";
 export async function generateStaticParams() {
   const products = getProducts();
   return products.map((product) => ({
-    product: product.id,
+    product: product.slug,
   }));
 }
 
 export async function generateMetadata({
   params,
 }: {
-  params: { product: string };
+  params: Promise<{ product: string }>;
 }) {
+  const { product: productSlug } = await params;
   const products = getProducts();
-  const product = products.find((p) => p.id === params.product);
+  const product = products.find((p) => p.slug === productSlug);
 
   if (!product) {
     return {
@@ -32,13 +33,14 @@ export async function generateMetadata({
   };
 }
 
-export default function ProductPage({
+export default async function ProductPage({
   params,
 }: {
-  params: { product: string };
+  params: Promise<{ product: string }>;
 }) {
+  const { product: productSlug } = await params;
   const products = getProducts();
-  const product = products.find((p) => p.id === params.product);
+  const product = products.find((p) => p.slug === productSlug);
 
   if (!product) {
     notFound();
