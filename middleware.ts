@@ -44,25 +44,25 @@ export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const subdomain = extractSubdomain(request);
 
-  // Handle reverse rewrites for /s/{subdomain} paths
-  if (pathname.startsWith("/s/")) {
-    const pathSubdomain = pathname.split("/")[2];
+  // Handle reverse rewrites for /c/{city} paths
+  if (pathname.startsWith("/c/")) {
+    const pathCity = pathname.split("/")[2];
     if (subdomain) {
-      // If on a subdomain and accessing /s/{subdomain}, redirect to root of subdomain
-      if (pathSubdomain === subdomain) {
+      // If on a subdomain and accessing /c/{city}, redirect to root of subdomain
+      if (pathCity === subdomain) {
         return NextResponse.redirect(new URL("/", request.url));
       }
     } else {
-      // If on root domain and accessing /s/{subdomain}, redirect to subdomain URL
-      const targetUrl = `https://${pathSubdomain}.${rootDomainFormatted}`;
+      // If on root domain and accessing /c/{city}, redirect to subdomain URL
+      const targetUrl = `https://${pathCity}.${rootDomainFormatted}`;
       return NextResponse.redirect(targetUrl);
     }
   }
 
   if (subdomain) {
-    // For the root path on a subdomain, rewrite to the subdomain page
+    // For the root path on a subdomain, rewrite to the city page
     if (pathname === "/") {
-      return NextResponse.rewrite(new URL(`/s/${subdomain}`, request.url));
+      return NextResponse.rewrite(new URL(`/c/${subdomain}`, request.url));
     }
   }
 

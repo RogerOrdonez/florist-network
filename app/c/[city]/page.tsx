@@ -14,10 +14,9 @@ import {
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ subdomain: string }>;
+  params: Promise<{ city: string }>;
 }): Promise<Metadata> {
-  const { subdomain } = await params;
-  const city = subdomain;
+  const { city } = await params;
   const cityData = await getCityData(city);
 
   if (!cityData) {
@@ -28,7 +27,7 @@ export async function generateMetadata({
     title: cityData.title,
     description: cityData.description,
     alternates: {
-      canonical: `${protocol}://${subdomain}.${rootDomain}`,
+      canonical: `${protocol}://${city}.${rootDomain}`,
     },
   };
 }
@@ -36,17 +35,16 @@ export async function generateMetadata({
 export async function generateStaticParams() {
   const cities = await getAllCities();
   return cities.map((city) => ({
-    subdomain: city.name,
+    city: city.slug,
   }));
 }
 
 export default async function CityPage({
   params,
 }: {
-  params: Promise<{ subdomain: string }>;
+  params: Promise<{ city: string }>;
 }) {
-  const { subdomain } = await params;
-  const city = subdomain;
+  const { city } = await params;
   const cityData = await getCityData(city);
   const products = getProducts();
 
