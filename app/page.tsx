@@ -1,4 +1,4 @@
-import { getAllCities } from "../lib/subdomains";
+import { getAllCities } from "../lib/data";
 import {
   Card,
   CardHeader,

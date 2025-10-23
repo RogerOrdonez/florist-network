@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { getAllCities } from "@/lib/subdomains";
+import { getAllCities } from "@/lib/data";
 
 export default async function Sitemap(): Promise<MetadataRoute.Sitemap> {
   const rootDomain = process.env.NEXT_PUBLIC_ROOT_DOMAIN || "localhost:3000";

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getAllCities, getCityData } from "@/lib/subdomains";
+import { getAllCities, getCityData } from "@/lib/data";
 import { protocol, rootDomain } from "@/lib/utils";
 import { getProducts } from "@/lib/data";
 import {
