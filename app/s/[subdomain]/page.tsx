@@ -55,7 +55,7 @@ export default async function CityPage({
   }
 
   return (
-    <div className="flex min-h-screen flex-col bg-linear-to-b from-blue-50 to-white p-4">
+    <div className="flex min-h-screen flex-col p-4">
       <div className="flex-1 flex items-center justify-center mt-8">
         <div className="text-center">
           <h1 className="text-4xl font-bold tracking-tight text-gray-900">
@@ -63,6 +63,9 @@ export default async function CityPage({
           </h1>
           <p className="mt-3 text-lg text-gray-600">
             {cityData.name ? cityData.description : "This is the city page."}
+          </p>
+          <p className=" mt-3 text-lg text-gray-600 max-w-5xl mx-auto text-balance">
+            {cityData.longDescription}
           </p>
         </div>
       </div>
