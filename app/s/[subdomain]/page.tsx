@@ -67,15 +67,21 @@ export default async function CityPage({
         <h2 className="text-2xl font-bold text-center mb-8">Our Products</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {products.map((product) => (
-            <Card key={product.id}>
-              <CardHeader>
-                <CardTitle>{product.name}</CardTitle>
-                <CardDescription>{product.description}</CardDescription>
-              </CardHeader>
-              <div className="p-6 pt-0">
-                <p className="text-lg font-semibold">${product.price}</p>
-              </div>
-            </Card>
+            <Link
+              key={product.id}
+              href={`/p/${product.slug}`}
+              className="block transition-transform hover:scale-105"
+            >
+              <Card>
+                <CardHeader>
+                  <CardTitle>{product.name}</CardTitle>
+                  <CardDescription>{product.description}</CardDescription>
+                </CardHeader>
+                <div className="p-6 pt-0">
+                  <p className="text-lg font-semibold">${product.price}</p>
+                </div>
+              </Card>
+            </Link>
           ))}
         </div>
       </div>
